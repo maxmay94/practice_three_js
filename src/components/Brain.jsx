@@ -13,8 +13,8 @@ import { useGLTF } from '@react-three/drei'
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/brain.gltf')
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.Object_5.geometry} material={materials.material_0} scale={.05} />
+    <group {...props} dispose={null} rotation={[-0.05, 1, -0.05]} >
+      <mesh geometry={nodes.Object_5.geometry} material={materials.material_0} scale={.04} />
     </group>
   )
 }
