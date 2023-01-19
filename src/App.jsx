@@ -1,32 +1,34 @@
+import React, { Suspense } from 'react'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+// import './App.css'
+import Box from './components/Box'
+import Sphere from './components/AnimatedSphere'
+
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="bg-slate-900 h-screen w-screen">
+      <div className='h-1/2 w-2/3'>
+        <Canvas>
+          <OrbitControls enableZoom={false} />
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[-2, 5 , 2]} intensity={.5} />
+          <Suspense fallback={null}>
+            <Box />
+          </Suspense>
+        </Canvas>
+        <Canvas>
+          <OrbitControls enableZoom={false} />
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[-2, 5 , 2]} intensity={.5} />
+          <Suspense fallback={null}>
+            <Sphere />
+          </Suspense>
+        </Canvas>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
