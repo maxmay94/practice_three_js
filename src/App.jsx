@@ -6,7 +6,7 @@ import Sphere from './components/AnimatedSphere'
 import Brain from "./components/Brain"
 
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Cloud, Stars } from '@react-three/drei'
+import { OrbitControls, Cloud, Stars, Sky } from '@react-three/drei'
 
 function App() {
 
@@ -26,11 +26,27 @@ function App() {
           </svg>
         </div>
         <Canvas>
-          <OrbitControls enableZoom={false} />
-          <ambientLight intensity={0.2} />
-          <directionalLight position={[-2, 5 , 2]} intensity={.5} />
+          <OrbitControls enableZoom={false} enablePan={false}  />
+          <ambientLight intensity={0.07} />
+          <directionalLight position={[-10, 0 , 0]} intensity={.5} />
           <Suspense fallback={null}>
-          <Cloud position={[1, 1, 1]} args={[6, 6]} />
+            <Sky 
+              sunPosition={[-10, 0, 0]} 
+              distance={3000} 
+              inclination={0.1}
+              rayleigh={3.1} 
+              turbidity={4.8}
+              mieCoefficient={0.05}
+              mieDirectionalG={.64}
+            />
+            <Cloud 
+              position={[1, 5, 3]} 
+              opacity={1} 
+              width={5} 
+              speed={.4} 
+              segments={50} 
+              depth={5} 
+            />
             <Brain />
           </Suspense>
         </Canvas>
@@ -42,8 +58,15 @@ function App() {
       </div>
 
 
-      <div className="bg-slate-200 h-1/3 p-20">
-        <p className='text-center text-slate-900 text-2xl p-10'>
+      <div className="bg-slate-200 h-1/3 relative p-20">
+        <Canvas>
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[-2, 5 , 2]} intensity={.5} />
+          <Suspense fallback={null}>
+            <Sphere />
+          </Suspense>
+        </Canvas>
+        <p className='text-center absolute top-[9rem] left-[12rem] bg-pink-500/80 skew-x-6 skew-y-6 text-slate-900 text-2xl'>
           Time to take a break!
         </p>
       </div>
